@@ -21,7 +21,14 @@ namespace ProgressQuest
         public BigInteger CurrentXP
         {
             get { return this.currentXP; }
-            set { if (value != this.currentXP) { this.currentXP = value; NotifyPropertyChanged(); } }
+            set { 
+                if (value != this.currentXP) 
+                { 
+                    this.currentXP = value; 
+                    NotifyPropertyChanged(); 
+                    NotifyPropertyChanged("XPPercent"); 
+                }
+            }
         }
         private BigInteger nextLevel { get; set; }
         public BigInteger NextLevel
@@ -34,19 +41,22 @@ namespace ProgressQuest
         public PlayerStat(string name)
         {
             Name = name;
-            value = rng.Next(2, 10);
-            currentXP = 10;
-            nextLevel = value * 10;
+            Value = rng.Next(2, 10);
+            CurrentXP = 10;
+            NextLevel = Value * 10;
         }
 
         public void AddXP(int gain)
         {
-            currentXP += gain;
-            if (currentXP > nextLevel)
+            if (CurrentXP + gain > nextLevel)
             {
-                value += 1;
-                currentXP -= nextLevel;
-                nextLevel += 10;
+                Value += 1;
+                CurrentXP -= (NextLevel - gain);
+                NextLevel += 10;
+            }
+            else
+            {
+                CurrentXP += gain;
             }
         }
 
