@@ -46,7 +46,7 @@
             // 
             this.actionBar.Location = new System.Drawing.Point(0, 728);
             this.actionBar.MarqueeAnimationSpeed = 0;
-            this.actionBar.Maximum = 10;
+            this.actionBar.Maximum = 4;
             this.actionBar.Name = "actionBar";
             this.actionBar.Size = new System.Drawing.Size(926, 23);
             this.actionBar.Step = 1;

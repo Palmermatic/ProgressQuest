@@ -84,7 +84,8 @@ namespace ProgressQuest
                 Minimum = 0,
                 Maximum = 100,
                 Step = 1,
-                Style = ProgressBarStyle.Continuous
+                Style = ProgressBarStyle.Continuous,
+                MarqueeAnimationSpeed = 0
             };
             xpBar.DataBindings.Add("Value", stat, "XPPercent", false, DataSourceUpdateMode.OnPropertyChanged);
             statsBox.Controls.Add(xpBar);
@@ -98,7 +99,7 @@ namespace ProgressQuest
             if (actionBar.Value >= actionBar.Maximum)
             {
                 Tick();
-                actionBar.Value = actionBar.Minimum;
+                actionBar.Value = 0;
             }
             else
             {

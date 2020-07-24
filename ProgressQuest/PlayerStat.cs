@@ -11,54 +11,51 @@ namespace ProgressQuest
         public event PropertyChangedEventHandler PropertyChanged;
 
         public string Name { get; set; }
-        private BigInteger _Value { get; set; }
+        private BigInteger value { get; set; }
         public BigInteger Value
         {
-            get { return this._Value; }
-            set { if (value != this.Value) { this.Value = value; NotifyPropertyChanged(); } }
+            get { return this.value; }
+            set { if (value != this.value) { this.value = value; NotifyPropertyChanged(); } }
         }
+        private BigInteger currentXP { get; set; }
         public BigInteger CurrentXP
         {
-            get { return this.Value; }
-            set { if (value != this.Value) { this.Value = value; NotifyPropertyChanged(); } }
+            get { return this.currentXP; }
+            set { if (value != this.currentXP) { this.currentXP = value; NotifyPropertyChanged(); } }
         }
-
+        private BigInteger nextLevel { get; set; }
         public BigInteger NextLevel
         {
-            get { return this.Value; }
-            set { if (value != this.Value) { this.Value = value; NotifyPropertyChanged(); } }
+            get { return this.nextLevel; }
+            set { if (value != this.nextLevel) { this.nextLevel = value; NotifyPropertyChanged(); } }
         }
         public int XPPercent { get { return (int)(this.CurrentXP * 100 / this.NextLevel); } }
 
         public PlayerStat(string name)
         {
             Name = name;
-            Value = rng.Next(1, 10);
-            CurrentXP = 10;
-            NextLevel = Value * 10;
+            value = rng.Next(2, 10);
+            currentXP = 10;
+            nextLevel = value * 10;
         }
-
 
         public void AddXP(int gain)
         {
-            CurrentXP += gain;
-            if (CurrentXP >= NextLevel)
+            currentXP += gain;
+            if (currentXP > nextLevel)
             {
-                Value += 1;
-                CurrentXP -= NextLevel;
-                NextLevel += 10;
+                value += 1;
+                currentXP -= nextLevel;
+                nextLevel += 10;
             }
         }
 
         // This method is called by the Set accessor of each property.
         // The CallerMemberName attribute that is applied to the optional propertyName
         // parameter causes the property name of the caller to be substituted as an argument.
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
