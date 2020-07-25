@@ -23,7 +23,7 @@ namespace ProgressQuest
                 var s = new PlayerStat(stat.ToString());
                 AddPlayerStat(s);
             }
-            adventureCheckbox.DataBindings.Add(new Binding("Checked", State, "IsRunning"));
+            adventureCheckbox.DataBindings.Add(new Binding("Checked", State.IsRunning, ""));
             questLogListBox.DataSource = GameManager.QuestLog.Log;
             questLogListBox.SelectedIndexChanged += new EventHandler(SelectLastLog);
             questLogListBox.SelectedIndex = 0;
@@ -42,6 +42,7 @@ namespace ProgressQuest
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            // ask to save
             Application.Exit();
         }
 

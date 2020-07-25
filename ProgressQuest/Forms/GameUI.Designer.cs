@@ -47,22 +47,29 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.equipmentListBox = new System.Windows.Forms.ListBox();
-            this.gameStateBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.hpLabel = new System.Windows.Forms.Label();
             this.hpText = new System.Windows.Forms.Label();
             this.damageText = new System.Windows.Forms.Label();
             this.dmgMinLabel = new System.Windows.Forms.Label();
             this.dmgMaxLabel = new System.Windows.Forms.Label();
             this.dashText = new System.Windows.Forms.Label();
+            this.gameStateBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.questBox = new System.Windows.Forms.GroupBox();
+            this.questListBox = new System.Windows.Forms.CheckedListBox();
+            this.enemyBox = new System.Windows.Forms.GroupBox();
+            this.enemyHPBar = new System.Windows.Forms.ProgressBar();
+            this.enemyHPText = new System.Windows.Forms.Label();
+            this.enemyHPLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gameStateBindingSource)).BeginInit();
+            this.questBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // actionBar
             // 
-            this.actionBar.Location = new System.Drawing.Point(0, 728);
+            this.actionBar.Location = new System.Drawing.Point(0, 842);
             this.actionBar.MarqueeAnimationSpeed = 0;
             this.actionBar.Maximum = 4;
             this.actionBar.Name = "actionBar";
@@ -84,7 +91,7 @@
             // adventureCheckbox
             // 
             this.adventureCheckbox.AutoSize = true;
-            this.adventureCheckbox.Location = new System.Drawing.Point(814, 705);
+            this.adventureCheckbox.Location = new System.Drawing.Point(814, 809);
             this.adventureCheckbox.Name = "adventureCheckbox";
             this.adventureCheckbox.Size = new System.Drawing.Size(103, 17);
             this.adventureCheckbox.TabIndex = 3;
@@ -141,9 +148,9 @@
             // questLogListBox
             // 
             this.questLogListBox.FormattingEnabled = true;
-            this.questLogListBox.Location = new System.Drawing.Point(0, 627);
+            this.questLogListBox.Location = new System.Drawing.Point(0, 722);
             this.questLogListBox.Name = "questLogListBox";
-            this.questLogListBox.Size = new System.Drawing.Size(632, 95);
+            this.questLogListBox.Size = new System.Drawing.Size(598, 108);
             this.questLogListBox.TabIndex = 7;
             // 
             // hpBar
@@ -199,9 +206,9 @@
             this.groupBox1.Controls.Add(this.cashText);
             this.groupBox1.Controls.Add(this.inventoryListBox);
             this.groupBox1.Controls.Add(this.cashLabel);
-            this.groupBox1.Location = new System.Drawing.Point(355, 284);
+            this.groupBox1.Location = new System.Drawing.Point(48, 508);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(243, 214);
+            this.groupBox1.Size = new System.Drawing.Size(288, 208);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Inventory";
@@ -229,18 +236,14 @@
             this.equipmentListBox.Size = new System.Drawing.Size(198, 160);
             this.equipmentListBox.TabIndex = 10;
             // 
-            // gameStateBindingSource
-            // 
-            this.gameStateBindingSource.DataSource = typeof(ProgressQuest.GameState);
-            // 
             // hpLabel
             // 
             this.hpLabel.AutoSize = true;
             this.hpLabel.Location = new System.Drawing.Point(178, 481);
             this.hpLabel.Name = "hpLabel";
-            this.hpLabel.Size = new System.Drawing.Size(35, 13);
+            this.hpLabel.Size = new System.Drawing.Size(42, 13);
             this.hpLabel.TabIndex = 15;
-            this.hpLabel.Text = "label1";
+            this.hpLabel.Text = "0 / 100";
             // 
             // hpText
             // 
@@ -287,11 +290,73 @@
             this.dashText.TabIndex = 14;
             this.dashText.Text = "-";
             // 
+            // gameStateBindingSource
+            // 
+            this.gameStateBindingSource.DataSource = typeof(ProgressQuest.GameState);
+            // 
+            // questBox
+            // 
+            this.questBox.Controls.Add(this.questListBox);
+            this.questBox.Location = new System.Drawing.Point(604, 700);
+            this.questBox.Name = "questBox";
+            this.questBox.Size = new System.Drawing.Size(200, 130);
+            this.questBox.TabIndex = 17;
+            this.questBox.TabStop = false;
+            this.questBox.Text = "Quest";
+            // 
+            // questListBox
+            // 
+            this.questListBox.FormattingEnabled = true;
+            this.questListBox.Location = new System.Drawing.Point(7, 20);
+            this.questListBox.Name = "questListBox";
+            this.questListBox.Size = new System.Drawing.Size(187, 109);
+            this.questListBox.TabIndex = 0;
+            // 
+            // enemyBox
+            // 
+            this.enemyBox.Location = new System.Drawing.Point(604, 284);
+            this.enemyBox.Name = "enemyBox";
+            this.enemyBox.Size = new System.Drawing.Size(288, 194);
+            this.enemyBox.TabIndex = 18;
+            this.enemyBox.TabStop = false;
+            this.enemyBox.Text = "Enemy";
+            // 
+            // enemyHPBar
+            // 
+            this.enemyHPBar.Location = new System.Drawing.Point(604, 475);
+            this.enemyHPBar.Name = "enemyHPBar";
+            this.enemyHPBar.Size = new System.Drawing.Size(288, 23);
+            this.enemyHPBar.Step = 1;
+            this.enemyHPBar.TabIndex = 19;
+            // 
+            // enemyHPText
+            // 
+            this.enemyHPText.AutoSize = true;
+            this.enemyHPText.Location = new System.Drawing.Point(693, 481);
+            this.enemyHPText.Name = "enemyHPText";
+            this.enemyHPText.Size = new System.Drawing.Size(25, 13);
+            this.enemyHPText.TabIndex = 21;
+            this.enemyHPText.Text = "HP:";
+            // 
+            // enemyHPLabel
+            // 
+            this.enemyHPLabel.AutoSize = true;
+            this.enemyHPLabel.Location = new System.Drawing.Point(724, 481);
+            this.enemyHPLabel.Name = "enemyHPLabel";
+            this.enemyHPLabel.Size = new System.Drawing.Size(42, 13);
+            this.enemyHPLabel.TabIndex = 20;
+            this.enemyHPLabel.Text = "0 / 100";
+            // 
             // GameUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(926, 772);
+            this.ClientSize = new System.Drawing.Size(926, 877);
+            this.Controls.Add(this.enemyHPText);
+            this.Controls.Add(this.enemyHPLabel);
+            this.Controls.Add(this.enemyHPBar);
+            this.Controls.Add(this.enemyBox);
+            this.Controls.Add(this.questBox);
             this.Controls.Add(this.hpText);
             this.Controls.Add(this.hpLabel);
             this.Controls.Add(this.groupBox2);
@@ -313,6 +378,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gameStateBindingSource)).EndInit();
+            this.questBox.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -345,6 +411,12 @@
         private System.Windows.Forms.Label hpText;
         private System.Windows.Forms.Label dashText;
         private System.Windows.Forms.Label dmgMaxLabel;
+        private System.Windows.Forms.GroupBox questBox;
+        private System.Windows.Forms.CheckedListBox questListBox;
+        private System.Windows.Forms.GroupBox enemyBox;
+        private System.Windows.Forms.ProgressBar enemyHPBar;
+        private System.Windows.Forms.Label enemyHPText;
+        private System.Windows.Forms.Label enemyHPLabel;
     }
 }
 
