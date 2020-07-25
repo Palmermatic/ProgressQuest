@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
@@ -47,20 +48,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameState.cs" />
-    <Compile Include="GameStrings.cs" />
-    <Compile Include="GameUI.cs">
+    <Compile Include="Managers\AdventureManager.cs" />
+    <Compile Include="Managers\MonsterManager.cs" />
+    <Compile Include="Models\Equipment.cs" />
+    <Compile Include="Models\Items\ArmorItem.cs" />
+    <Compile Include="Models\GameState.cs" />
+    <Compile Include="Assets\GameStrings.cs" />
+    <Compile Include="Forms\GameUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GameUI.Designer.cs">
+    <Compile Include="Forms\GameUI.Designer.cs">
       <DependentUpon>GameUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameManager.cs" />
-    <Compile Include="PlayerStat.cs" />
+    <Compile Include="Managers\GameManager.cs" />
+    <Compile Include="Models\Items\LootItem.cs" />
+    <Compile Include="Models\Monster.cs" />
+    <Compile Include="Models\Player\Player.cs" />
+    <Compile Include="Models\Player\PlayerStat.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuestLog.cs" />
-    <EmbeddedResource Include="GameUI.resx">
+    <Compile Include="Models\QuestLog.cs" />
+    <EmbeddedResource Include="Forms\GameUI.resx">
       <DependentUpon>GameUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -72,6 +80,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Properties\DataSources\GameState.datasource" />
     <None Include="Properties\DataSources\QuestLog.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -11,31 +11,35 @@ namespace ProgressQuest
         public event PropertyChangedEventHandler PropertyChanged;
 
         public string Name { get; set; }
+
         private BigInteger value { get; set; }
         public BigInteger Value
         {
             get { return this.value; }
             set { if (value != this.value) { this.value = value; NotifyPropertyChanged(); } }
         }
+
         private BigInteger currentXP { get; set; }
         public BigInteger CurrentXP
         {
             get { return this.currentXP; }
-            set { 
-                if (value != this.currentXP) 
-                { 
-                    this.currentXP = value; 
-                    NotifyPropertyChanged(); 
-                    NotifyPropertyChanged("XPPercent"); 
+            set {
+                if (value != this.currentXP)
+                {
+                    this.currentXP = value;
+                    NotifyPropertyChanged();
+                    NotifyPropertyChanged("XPPercent");
                 }
             }
         }
+
         private BigInteger nextLevel { get; set; }
         public BigInteger NextLevel
         {
             get { return this.nextLevel; }
             set { if (value != this.nextLevel) { this.nextLevel = value; NotifyPropertyChanged(); } }
         }
+
         public int XPPercent { get { return (int)(this.CurrentXP * 100 / this.NextLevel); } }
 
         public PlayerStat(string name)

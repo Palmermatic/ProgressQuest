@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static ProgressQuest.GameManager;
 using static ProgressQuest.GameStrings;
-using static ProgressQuest.QuestLog;
 
 namespace ProgressQuest
 {
@@ -19,20 +18,26 @@ namespace ProgressQuest
         {
             InitializeComponent();
             GameManager.NewGame();
-            foreach (var statName in STARTING_PLAYER_STATS)
+            foreach (var stat in Enum.GetValues(typeof(STARTING_PLAYER_STAT)))
             {
-                var s = new PlayerStat(statName);
+                var s = new PlayerStat(stat.ToString());
                 AddPlayerStat(s);
             }
             adventureCheckbox.DataBindings.Add(new Binding("Checked", State, "IsRunning"));
-            QuestLog.DataSource = GameManager.QuestLog.Log;
-            QuestLog.SelectedIndexChanged += new EventHandler(SelectLastLog);
+            questLogListBox.DataSource = GameManager.QuestLog.Log;
+            questLogListBox.SelectedIndexChanged += new EventHandler(SelectLastLog);
+            questLogListBox.SelectedIndex = 0;
+            hpBar.DataBindings.Add("Value", State.Player.HPPercent, "");
+            playerNameLabel.DataBindings.Add("Text", State.Player.Name ?? "Noob", "");
+            cashLabel.DataBindings.Add("Text", State.Player.Cash, "");
+            inventoryListBox.DataSource = State.Player.Inventory;
+            equipmentListBox.DataSource = State.Player.Equipment.Items;
         }
 
         private void SelectLastLog(object sender, EventArgs e)
         {
-            QuestLog.SelectedIndex = 0;
-            //TODO this doesn't fire until the box is clicked
+            questLogListBox.SelectedIndex = 0;
+            //TODO why doesn't this fire until the box is clicked?
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -54,7 +59,7 @@ namespace ProgressQuest
 
         public void AddPlayerStat(PlayerStat stat)
         {
-            State.Stats.Add(stat.Name, stat);
+            State.Player.Stats.Add(stat.Name, stat);
 
             var yCoord = 10 * statsBox.Controls.Count + 25;
 
