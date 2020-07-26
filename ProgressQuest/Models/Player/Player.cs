@@ -10,9 +10,8 @@ using static ProgressQuest.GameStrings;
 
 namespace ProgressQuest.Models
 {
-    public class Player
+    public class Player : DisplayedItem
     {
-        public event PropertyChangedEventHandler PropertyChanged;
         private string name { get; set; }
         public string Name { get { return name; } set { if (!string.IsNullOrWhiteSpace(name) && name != value) { name = value; NotifyPropertyChanged(); } } }
         public Dictionary<string, PlayerStat> Stats;
@@ -51,9 +50,6 @@ namespace ProgressQuest.Models
             Stats = new Dictionary<string, PlayerStat>();
         }
 
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+
     }
 }

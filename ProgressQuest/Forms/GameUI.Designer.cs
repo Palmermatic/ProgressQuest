@@ -38,7 +38,7 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.actionTimer = new System.Windows.Forms.Timer(this.components);
-            this.questLogListBox = new System.Windows.Forms.ListBox();
+            this.gameLogListBox = new System.Windows.Forms.ListBox();
             this.hpBar = new System.Windows.Forms.ProgressBar();
             this.playerNameLabel = new System.Windows.Forms.Label();
             this.inventoryListBox = new System.Windows.Forms.ListBox();
@@ -53,18 +53,19 @@
             this.dmgMinLabel = new System.Windows.Forms.Label();
             this.dmgMaxLabel = new System.Windows.Forms.Label();
             this.dashText = new System.Windows.Forms.Label();
-            this.gameStateBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.questBox = new System.Windows.Forms.GroupBox();
-            this.questListBox = new System.Windows.Forms.CheckedListBox();
+            this.questLogListBox = new System.Windows.Forms.CheckedListBox();
             this.enemyBox = new System.Windows.Forms.GroupBox();
             this.enemyHPBar = new System.Windows.Forms.ProgressBar();
             this.enemyHPText = new System.Windows.Forms.Label();
             this.enemyHPLabel = new System.Windows.Forms.Label();
+            this.gameStateBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.questBar = new System.Windows.Forms.ProgressBar();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gameStateBindingSource)).BeginInit();
             this.questBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gameStateBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // actionBar
@@ -145,13 +146,13 @@
             this.actionTimer.Interval = 250;
             this.actionTimer.Tick += new System.EventHandler(this.actionTimer_Tick);
             // 
-            // questLogListBox
+            // gameLogListBox
             // 
-            this.questLogListBox.FormattingEnabled = true;
-            this.questLogListBox.Location = new System.Drawing.Point(0, 722);
-            this.questLogListBox.Name = "questLogListBox";
-            this.questLogListBox.Size = new System.Drawing.Size(598, 108);
-            this.questLogListBox.TabIndex = 7;
+            this.gameLogListBox.FormattingEnabled = true;
+            this.gameLogListBox.Location = new System.Drawing.Point(0, 722);
+            this.gameLogListBox.Name = "gameLogListBox";
+            this.gameLogListBox.Size = new System.Drawing.Size(598, 108);
+            this.gameLogListBox.TabIndex = 7;
             // 
             // hpBar
             // 
@@ -290,27 +291,24 @@
             this.dashText.TabIndex = 14;
             this.dashText.Text = "-";
             // 
-            // gameStateBindingSource
-            // 
-            this.gameStateBindingSource.DataSource = typeof(ProgressQuest.GameState);
-            // 
             // questBox
             // 
-            this.questBox.Controls.Add(this.questListBox);
-            this.questBox.Location = new System.Drawing.Point(604, 700);
+            this.questBox.Controls.Add(this.questBar);
+            this.questBox.Controls.Add(this.questLogListBox);
+            this.questBox.Location = new System.Drawing.Point(604, 586);
             this.questBox.Name = "questBox";
-            this.questBox.Size = new System.Drawing.Size(200, 130);
+            this.questBox.Size = new System.Drawing.Size(200, 244);
             this.questBox.TabIndex = 17;
             this.questBox.TabStop = false;
             this.questBox.Text = "Quest";
             // 
-            // questListBox
+            // questLogListBox
             // 
-            this.questListBox.FormattingEnabled = true;
-            this.questListBox.Location = new System.Drawing.Point(7, 20);
-            this.questListBox.Name = "questListBox";
-            this.questListBox.Size = new System.Drawing.Size(187, 109);
-            this.questListBox.TabIndex = 0;
+            this.questLogListBox.FormattingEnabled = true;
+            this.questLogListBox.Location = new System.Drawing.Point(7, 20);
+            this.questLogListBox.Name = "questLogListBox";
+            this.questLogListBox.Size = new System.Drawing.Size(187, 109);
+            this.questLogListBox.TabIndex = 0;
             // 
             // enemyBox
             // 
@@ -347,6 +345,18 @@
             this.enemyHPLabel.TabIndex = 20;
             this.enemyHPLabel.Text = "0 / 100";
             // 
+            // gameStateBindingSource
+            // 
+            this.gameStateBindingSource.DataSource = typeof(ProgressQuest.GameState);
+            // 
+            // questBar
+            // 
+            this.questBar.Location = new System.Drawing.Point(0, 220);
+            this.questBar.Name = "questBar";
+            this.questBar.Size = new System.Drawing.Size(200, 24);
+            this.questBar.Step = 1;
+            this.questBar.TabIndex = 1;
+            // 
             // GameUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -363,7 +373,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.playerNameLabel);
             this.Controls.Add(this.hpBar);
-            this.Controls.Add(this.questLogListBox);
+            this.Controls.Add(this.gameLogListBox);
             this.Controls.Add(this.adventureCheckbox);
             this.Controls.Add(this.statsBox);
             this.Controls.Add(this.actionBar);
@@ -377,8 +387,8 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gameStateBindingSource)).EndInit();
             this.questBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gameStateBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -395,7 +405,7 @@
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Timer actionTimer;
-        public System.Windows.Forms.ListBox questLogListBox;
+        public System.Windows.Forms.ListBox gameLogListBox;
         private System.Windows.Forms.ProgressBar hpBar;
         private System.Windows.Forms.Label playerNameLabel;
         private System.Windows.Forms.BindingSource gameStateBindingSource;
@@ -412,11 +422,12 @@
         private System.Windows.Forms.Label dashText;
         private System.Windows.Forms.Label dmgMaxLabel;
         private System.Windows.Forms.GroupBox questBox;
-        private System.Windows.Forms.CheckedListBox questListBox;
+        private System.Windows.Forms.CheckedListBox questLogListBox;
         private System.Windows.Forms.GroupBox enemyBox;
         private System.Windows.Forms.ProgressBar enemyHPBar;
         private System.Windows.Forms.Label enemyHPText;
         private System.Windows.Forms.Label enemyHPLabel;
+        private System.Windows.Forms.ProgressBar questBar;
     }
 }
 

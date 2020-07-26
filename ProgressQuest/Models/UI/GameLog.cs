@@ -8,13 +8,13 @@ using System.Windows.Forms;
 
 namespace ProgressQuest
 {
-    public class QuestLog
+    public class GameLog
     {
         public BindingList<string> Log { get; set; }
         public string NextLog { get; set; }
         public Action NextReward { get; set; }
 
-        public QuestLog()
+        public GameLog()
         {
             Log = new BindingList<string>
             {

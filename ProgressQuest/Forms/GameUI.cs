@@ -17,45 +17,50 @@ namespace ProgressQuest
         public GameUI()
         {
             InitializeComponent();
-            GameManager.NewGame();
+
+            // initialize player
+            NewGame();
             foreach (var stat in Enum.GetValues(typeof(STARTING_PLAYER_STAT)))
             {
                 var s = new PlayerStat(stat.ToString());
                 AddPlayerStat(s);
             }
+
+            // bind all the UI controls
             adventureCheckbox.DataBindings.Add(new Binding("Checked", State.IsRunning, ""));
-            questLogListBox.DataSource = GameManager.QuestLog.Log;
-            questLogListBox.SelectedIndexChanged += new EventHandler(SelectLastLog);
-            questLogListBox.SelectedIndex = 0;
+            gameLogListBox.DataSource = GameManager.GameLog.Log;
+            gameLogListBox.SelectedIndexChanged += new EventHandler(SelectLastLog);
+            gameLogListBox.SelectedIndex = 0;
             hpBar.DataBindings.Add("Value", State.Player.HPPercent, "");
             playerNameLabel.DataBindings.Add("Text", State.Player.Name ?? "Noob", "");
             cashLabel.DataBindings.Add("Text", State.Player.Cash, "");
             inventoryListBox.DataSource = State.Player.Inventory;
             equipmentListBox.DataSource = State.Player.Equipment.Items;
+            questBar.DataBindings.Add("Value", State.QuestLog.CurrentQuestPercent, "");
         }
 
         private void SelectLastLog(object sender, EventArgs e)
         {
-            questLogListBox.SelectedIndex = 0;
+            gameLogListBox.SelectedIndex = 0;
             //TODO why doesn't this fire until the box is clicked?
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // ask to save
+            //TODO ask to save
             Application.Exit();
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // pause game
-            // serialize gamestate to file
+            //TODO pause game
+            //TODO serialize gamestate to file
         }
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // ask to save
-            // deserialize file to gamestate
+            //TODO ask to save
+            //TODO deserialize file to gamestate
         }
 
         public void AddPlayerStat(PlayerStat stat)

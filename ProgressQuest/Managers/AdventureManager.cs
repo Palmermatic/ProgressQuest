@@ -26,9 +26,9 @@ namespace ProgressQuest.Managers
 
             }
             var item = GameManager.State.Player.Inventory.First();
-            GameManager.QuestLog.Add("Selling " + item.Name, () =>
+            GameManager.GameLog.Add("Selling " + item.Name, () =>
             {
-                GameManager.State.Player.Inventory.RemoveAt(0);
+                GameManager.State.Player.Inventory.Remove(item);
                 GameManager.State.Player.Cash += item.Value;
             });
         }
