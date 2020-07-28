@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,27 +8,30 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using static ProgressQuest.GameStrings;
+using static ProgressQuest.GameManager;
 
 namespace ProgressQuest.Models
 {
-    public class Player : DisplayedItem
+    public class Player : INotifyPropertyChanged
     {
         private string name { get; set; }
-        public string Name { get { return name; } set { if (!string.IsNullOrWhiteSpace(name) && name != value) { name = value; NotifyPropertyChanged(); } } }
+        public string Name { get { return name; } set {
+                if (!string.IsNullOrWhiteSpace(value) && name != value) { name = value; NotifyPropertyChanged(); } } }
         public Dictionary<string, PlayerStat> Stats;
         private BigInteger hp { get; set; }
         public BigInteger HP
         {
             get { return hp; }
-            set { if (value != hp) { hp = value; NotifyPropertyChanged(); NotifyPropertyChanged("HPPercent"); } }
+            set { if (value != hp) { hp = value; NotifyPropertyChanged("HPLabel"); NotifyPropertyChanged("HPPercent"); } }
         }
         private BigInteger maxHP { get; set; }
         public BigInteger MaxHP
         {
             get { return maxHP; }
-            set { if (value != maxHP) { maxHP = value; NotifyPropertyChanged(); NotifyPropertyChanged("HPPercent"); } }
+            set { if (value != maxHP) { maxHP = value; NotifyPropertyChanged("HPLabel"); NotifyPropertyChanged("HPPercent"); } }
         }
-        public int HPPercent { get { return (int)(hp * 100 / maxHP); } }
+        public int HPPercent { get { if (maxHP == 0) return 0; return (int)(hp * 100 / maxHP); } }
+        public string HPLabel { get { return HP + " / " + MaxHP; } }
 
         private BigInteger cash { get; set; }
         public BigInteger Cash { get { return cash; } set { if (cash != value) { cash = value; NotifyPropertyChanged(); } } }
@@ -37,19 +41,23 @@ namespace ProgressQuest.Models
         public BigInteger DmgMax { get { return dmgMax; } set { if (dmgMax != value) { dmgMax = value; NotifyPropertyChanged(); } } }
 
         public BindingList<LootItem> Inventory { get; set; }
-        public Equipment Equipment { get; set; }
+        public EquipmentManager Equipment { get; set; }
 
         public Player()
         {
-            Equipment = new Equipment();
-            Equipment.Equip(new ArmorItem { Name = "a stupid hat", Value = 0 });
-            Inventory = new BindingList<LootItem> { new LootItem { Name = "small piece of shit", Value = 1 } };
-            MaxHP = 10;
-            HP = 10;
-            Cash = 1;
+            var input = Interaction.InputBox("Enter your name", "New game");
+            Name = string.IsNullOrWhiteSpace(input) ? "a noob" : input;
+            Equipment = new EquipmentManager();
+            Equipment.Equip(new ArmorItem { Name = "a stupid hat", Value = 10 });
+            Inventory = new BindingList<LootItem>();
             Stats = new Dictionary<string, PlayerStat>();
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
 
+        protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

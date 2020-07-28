@@ -3,33 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ProgressQuest.GameManager;
 
 namespace ProgressQuest.Managers
 {
     public static class AdventureManager
     {
-        public static string GetNextLocation()
+        public static void SetNextLocation()
         {
-            return GameStrings.ADVENTURE_LOCATIONS[0];
+            State.QuestLog.Location = GameStrings.ADVENTURE_LOCATIONS[0];
         }
 
-        internal static void DoBattle()
+        public static void DoBattle()
         {
             // if monster is dead, loot it and find a new monster
 
         }
 
-        internal static void SellLoot()
+        public static void SellLoot()
         {
-            if (!GameManager.State.Player.Inventory.Any())
+            var item = State.Player.Inventory.First();
+            Log.Add($"Selling {item.Name} for ${item.Value}", () =>
             {
-
-            }
-            var item = GameManager.State.Player.Inventory.First();
-            GameManager.GameLog.Add("Selling " + item.Name, () =>
-            {
-                GameManager.State.Player.Inventory.Remove(item);
-                GameManager.State.Player.Cash += item.Value;
+                State.Player.Cash += item.Value;
+                State.Player.Inventory.Remove(item);
             });
         }
     }

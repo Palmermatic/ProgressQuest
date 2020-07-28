@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using static ProgressQuest.GameStrings;
 using Microsoft.VisualBasic;
 using ProgressQuest.Managers;
+using ProgressQuest.Models.UI;
+using static ProgressQuest.GameManager;
 
 namespace ProgressQuest
 {
@@ -16,33 +18,31 @@ namespace ProgressQuest
     {
         public static GameState State;
         public static Random rng;
-        public static GameLog GameLog;
+        public static GameLog Log;
 
         public static void NewGame()
         {
             State = new GameState();
-            State.Player.Name = Interaction.InputBox("Enter your name", "New game", "");
             rng = new Random();
-            GameLog = new GameLog();
+            Log = new GameLog();
         }
 
         public static void Tick()
         {
             SetNextAction();
-            State.Player.Stats["Experience"].AddXP(10);
         }
 
         public static void SetNextAction()
         {
-            if (State.IntroStepsLeft > 0)
+            if (State.QuestLog.CurrentActNumber == 0)
             {
-                GameManager.GameLog.Add(INTRO_STEPS[INTRO_STEPS.Length - State.IntroStepsLeft--]);
+                State.QuestLog.DoIntro();
             }
             else
             {
                 if (State.Player.HP > 0)
                 {
-                    if (State.Location == "Town")
+                    if (State.QuestLog.Location == "Town")
                     {
                         if (State.Player.Inventory.Any())
                         {
@@ -50,7 +50,7 @@ namespace ProgressQuest
                         }
                         else
                         {
-                            GameManager.GameLog.Add("Walking to the killing fields...", () => { State.Location = AdventureManager.GetNextLocation(); });
+                            Log.Add("Walking to the killing fields...", () => { AdventureManager.SetNextLocation(); });
                         }
                     }
                     else
@@ -60,13 +60,13 @@ namespace ProgressQuest
                 }
                 else
                 {
-                    if (State.Location == "Town")
+                    if (State.QuestLog.Location == "Town")
                     {
-                        GameManager.GameLog.Add("Resting up...", () => { State.Player.HP = State.Player.MaxHP; });
+                        Log.Add("Resting up...", () => { State.Player.HP = State.Player.MaxHP; });
                     }
                     else
                     {
-                        GameManager.GameLog.Add("Limping back to town...", () => { State.Location = "Town"; });
+                        Log.Add("Limping back to town...", () => { State.QuestLog.Location = "Town"; });
                     }
                 }
             }
@@ -75,7 +75,7 @@ namespace ProgressQuest
         public static void TrainRandomStat()
         {
             var randomStat = State.Player.Stats.Skip(rng.Next(1, State.Player.Stats.Count)).First();
-            GameManager.GameLog.Add("Training " + randomStat.Key + "...", () => { randomStat.Value.AddXP(10); });
+            GameManager.Log.Add("Training " + randomStat.Key + "...", () => { randomStat.Value.AddXP(10); });
         }
     }
 }

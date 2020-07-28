@@ -13,6 +13,14 @@ namespace ProgressQuest.Models
         public string Name { get; set; }
         public BigInteger Value { get; set; }
 
+        public LootItem() { }
+
+        public LootItem(string name, BigInteger value)
+        {
+            Name = name;
+            Value = value;
+        }
+
         public override string ToString()
         {
             return Name + " ($" + Value + ")";

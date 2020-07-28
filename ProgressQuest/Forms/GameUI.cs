@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static ProgressQuest.GameManager;
 using static ProgressQuest.GameStrings;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace ProgressQuest
 {
@@ -28,21 +30,36 @@ namespace ProgressQuest
 
             // bind all the UI controls
             adventureCheckbox.DataBindings.Add(new Binding("Checked", State.IsRunning, ""));
-            gameLogListBox.DataSource = GameManager.GameLog.Log;
+            gameLogListBox.DataSource = GameManager.Log.Log;
             gameLogListBox.SelectedIndexChanged += new EventHandler(SelectLastLog);
-            gameLogListBox.SelectedIndex = 0;
             hpBar.DataBindings.Add("Value", State.Player.HPPercent, "");
-            playerNameLabel.DataBindings.Add("Text", State.Player.Name ?? "Noob", "");
+            hpLabel.DataBindings.Add("Text", State.Player.HPLabel, "");
+            playerNameLabel.DataBindings.Add("Text", State.Player.Name, "");
             cashLabel.DataBindings.Add("Text", State.Player.Cash, "");
             inventoryListBox.DataSource = State.Player.Inventory;
             equipmentListBox.DataSource = State.Player.Equipment.Items;
+            locationLabel.DataBindings.Add("Text", State.QuestLog.Location, "", false, DataSourceUpdateMode.OnPropertyChanged);
             questBar.DataBindings.Add("Value", State.QuestLog.CurrentQuestPercent, "");
+            questLogListBox.DataSource = State.QuestLog.Quests;
+            questLogListBox.DisplayMember = "Text";
+            questLogListBox.ClearSelected();
+        }
+
+        public void SetActionTicksRequired(int ticks = 3)
+        {
+            actionBar.Maximum = ticks;
         }
 
         private void SelectLastLog(object sender, EventArgs e)
         {
             gameLogListBox.SelectedIndex = 0;
             //TODO why doesn't this fire until the box is clicked?
+
+            for (int i = 0; i < questLogListBox.Items.Count; ++i)
+            {
+                questLogListBox.SetItemChecked(i, ((Models.UI.QuestLog.Quest)questLogListBox.Items[i]).IsChecked);
+            }
+            questLogListBox.SelectedIndex = questLogListBox.Items.Count - 1;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -109,8 +126,9 @@ namespace ProgressQuest
         {
             if (actionBar.Value >= actionBar.Maximum)
             {
-                Tick();
                 actionBar.Value = 0;
+
+                Tick();
             }
             else
             {
@@ -129,6 +147,12 @@ namespace ProgressQuest
             {
                 actionTimer.Stop();
             }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var a = new AboutBox1(JsonSerializer.Serialize(State));
+            a.ShowDialog();
         }
     }
 }

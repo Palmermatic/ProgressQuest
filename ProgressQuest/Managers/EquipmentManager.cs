@@ -5,14 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static ProgressQuest.GameStrings;
+using static ProgressQuest.GameManager;
 
 namespace ProgressQuest.Models
 {
-    public class Equipment
+    public class EquipmentManager
     {
         public BindingList<ArmorItem> Items { get; set; }
 
-        public Equipment()
+        public EquipmentManager()
         {
             Items = new BindingList<ArmorItem>();
             foreach (PLAYER_ARMOR_SLOT slot in Enum.GetValues(typeof(PLAYER_ARMOR_SLOT)))

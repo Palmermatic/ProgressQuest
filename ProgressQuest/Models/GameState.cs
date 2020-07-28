@@ -18,11 +18,9 @@ namespace ProgressQuest
     {
         public QuestLog QuestLog { get; set; }
         public Player Player { get; set; }
-        public string Location { get; set; }
+        public Monster Enemy { get; set; }
+
         public bool IsRunning { get; set; }
-        public int IntroStepsLeft { get; set; }
-
-
 
         /// <summary>
         /// constructor
@@ -30,10 +28,8 @@ namespace ProgressQuest
         public GameState()
         {
             Player = new Player();
-            Location = "Town";
             QuestLog = new QuestLog();
             IsRunning = true;
-            IntroStepsLeft = INTRO_STEPS.Length;
         }
 
 

@@ -46,21 +46,25 @@
             this.cashText = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.equipmentListBox = new System.Windows.Forms.ListBox();
-            this.hpLabel = new System.Windows.Forms.Label();
-            this.hpText = new System.Windows.Forms.Label();
-            this.damageText = new System.Windows.Forms.Label();
-            this.dmgMinLabel = new System.Windows.Forms.Label();
-            this.dmgMaxLabel = new System.Windows.Forms.Label();
             this.dashText = new System.Windows.Forms.Label();
+            this.dmgMaxLabel = new System.Windows.Forms.Label();
+            this.dmgMinLabel = new System.Windows.Forms.Label();
+            this.damageText = new System.Windows.Forms.Label();
+            this.equipmentListBox = new System.Windows.Forms.ListBox();
+            this.hpText = new System.Windows.Forms.Label();
             this.questBox = new System.Windows.Forms.GroupBox();
+            this.questBar = new System.Windows.Forms.ProgressBar();
             this.questLogListBox = new System.Windows.Forms.CheckedListBox();
             this.enemyBox = new System.Windows.Forms.GroupBox();
             this.enemyHPBar = new System.Windows.Forms.ProgressBar();
             this.enemyHPText = new System.Windows.Forms.Label();
             this.enemyHPLabel = new System.Windows.Forms.Label();
+            this.hpLabel = new System.Windows.Forms.Label();
+            this.nameText = new System.Windows.Forms.Label();
+            this.locationText = new System.Windows.Forms.Label();
+            this.locationLabel = new System.Windows.Forms.Label();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gameStateBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.questBar = new System.Windows.Forms.ProgressBar();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -72,7 +76,7 @@
             // 
             this.actionBar.Location = new System.Drawing.Point(0, 842);
             this.actionBar.MarqueeAnimationSpeed = 0;
-            this.actionBar.Maximum = 4;
+            this.actionBar.Maximum = 5;
             this.actionBar.Name = "actionBar";
             this.actionBar.Size = new System.Drawing.Size(926, 23);
             this.actionBar.Step = 1;
@@ -103,7 +107,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(926, 24);
@@ -168,7 +173,7 @@
             this.playerNameLabel.AutoEllipsis = true;
             this.playerNameLabel.AutoSize = true;
             this.playerNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.playerNameLabel.Location = new System.Drawing.Point(44, 24);
+            this.playerNameLabel.Location = new System.Drawing.Point(57, 25);
             this.playerNameLabel.MaximumSize = new System.Drawing.Size(288, 20);
             this.playerNameLabel.Name = "playerNameLabel";
             this.playerNameLabel.Size = new System.Drawing.Size(45, 20);
@@ -229,49 +234,14 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Equipment";
             // 
-            // equipmentListBox
+            // dashText
             // 
-            this.equipmentListBox.FormattingEnabled = true;
-            this.equipmentListBox.Location = new System.Drawing.Point(20, 29);
-            this.equipmentListBox.Name = "equipmentListBox";
-            this.equipmentListBox.Size = new System.Drawing.Size(198, 160);
-            this.equipmentListBox.TabIndex = 10;
-            // 
-            // hpLabel
-            // 
-            this.hpLabel.AutoSize = true;
-            this.hpLabel.Location = new System.Drawing.Point(178, 481);
-            this.hpLabel.Name = "hpLabel";
-            this.hpLabel.Size = new System.Drawing.Size(42, 13);
-            this.hpLabel.TabIndex = 15;
-            this.hpLabel.Text = "0 / 100";
-            // 
-            // hpText
-            // 
-            this.hpText.AutoSize = true;
-            this.hpText.Location = new System.Drawing.Point(147, 481);
-            this.hpText.Name = "hpText";
-            this.hpText.Size = new System.Drawing.Size(25, 13);
-            this.hpText.TabIndex = 16;
-            this.hpText.Text = "HP:";
-            // 
-            // damageText
-            // 
-            this.damageText.AutoSize = true;
-            this.damageText.Location = new System.Drawing.Point(20, 196);
-            this.damageText.Name = "damageText";
-            this.damageText.Size = new System.Drawing.Size(50, 13);
-            this.damageText.TabIndex = 11;
-            this.damageText.Text = "Damage:";
-            // 
-            // dmgMinLabel
-            // 
-            this.dmgMinLabel.AutoSize = true;
-            this.dmgMinLabel.Location = new System.Drawing.Point(81, 197);
-            this.dmgMinLabel.Name = "dmgMinLabel";
-            this.dmgMinLabel.Size = new System.Drawing.Size(45, 13);
-            this.dmgMinLabel.TabIndex = 12;
-            this.dmgMinLabel.Text = "minDmg";
+            this.dashText.AutoSize = true;
+            this.dashText.Location = new System.Drawing.Point(132, 196);
+            this.dashText.Name = "dashText";
+            this.dashText.Size = new System.Drawing.Size(10, 13);
+            this.dashText.TabIndex = 14;
+            this.dashText.Text = "-";
             // 
             // dmgMaxLabel
             // 
@@ -282,17 +252,45 @@
             this.dmgMaxLabel.TabIndex = 13;
             this.dmgMaxLabel.Text = "maxDmg";
             // 
-            // dashText
+            // dmgMinLabel
             // 
-            this.dashText.AutoSize = true;
-            this.dashText.Location = new System.Drawing.Point(132, 196);
-            this.dashText.Name = "dashText";
-            this.dashText.Size = new System.Drawing.Size(10, 13);
-            this.dashText.TabIndex = 14;
-            this.dashText.Text = "-";
+            this.dmgMinLabel.AutoSize = true;
+            this.dmgMinLabel.Location = new System.Drawing.Point(81, 197);
+            this.dmgMinLabel.Name = "dmgMinLabel";
+            this.dmgMinLabel.Size = new System.Drawing.Size(45, 13);
+            this.dmgMinLabel.TabIndex = 12;
+            this.dmgMinLabel.Text = "minDmg";
+            // 
+            // damageText
+            // 
+            this.damageText.AutoSize = true;
+            this.damageText.Location = new System.Drawing.Point(20, 196);
+            this.damageText.Name = "damageText";
+            this.damageText.Size = new System.Drawing.Size(50, 13);
+            this.damageText.TabIndex = 11;
+            this.damageText.Text = "Damage:";
+            // 
+            // equipmentListBox
+            // 
+            this.equipmentListBox.FormattingEnabled = true;
+            this.equipmentListBox.Location = new System.Drawing.Point(20, 29);
+            this.equipmentListBox.Name = "equipmentListBox";
+            this.equipmentListBox.Size = new System.Drawing.Size(198, 160);
+            this.equipmentListBox.TabIndex = 10;
+            // 
+            // hpText
+            // 
+            this.hpText.AutoSize = true;
+            this.hpText.Location = new System.Drawing.Point(147, 481);
+            this.hpText.Name = "hpText";
+            this.hpText.Size = new System.Drawing.Size(25, 13);
+            this.hpText.TabIndex = 16;
+            this.hpText.Text = "HP:";
             // 
             // questBox
             // 
+            this.questBox.Controls.Add(this.locationLabel);
+            this.questBox.Controls.Add(this.locationText);
             this.questBox.Controls.Add(this.questBar);
             this.questBox.Controls.Add(this.questLogListBox);
             this.questBox.Location = new System.Drawing.Point(604, 586);
@@ -302,10 +300,19 @@
             this.questBox.TabStop = false;
             this.questBox.Text = "Quest";
             // 
+            // questBar
+            // 
+            this.questBar.Location = new System.Drawing.Point(0, 220);
+            this.questBar.Name = "questBar";
+            this.questBar.Size = new System.Drawing.Size(200, 24);
+            this.questBar.Step = 1;
+            this.questBar.TabIndex = 1;
+            // 
             // questLogListBox
             // 
+            this.questLogListBox.Enabled = false;
             this.questLogListBox.FormattingEnabled = true;
-            this.questLogListBox.Location = new System.Drawing.Point(7, 20);
+            this.questLogListBox.Location = new System.Drawing.Point(7, 38);
             this.questLogListBox.Name = "questLogListBox";
             this.questLogListBox.Size = new System.Drawing.Size(187, 109);
             this.questLogListBox.TabIndex = 0;
@@ -345,23 +352,60 @@
             this.enemyHPLabel.TabIndex = 20;
             this.enemyHPLabel.Text = "0 / 100";
             // 
+            // hpLabel
+            // 
+            this.hpLabel.AutoSize = true;
+            this.hpLabel.Location = new System.Drawing.Point(178, 481);
+            this.hpLabel.Name = "hpLabel";
+            this.hpLabel.Size = new System.Drawing.Size(13, 13);
+            this.hpLabel.TabIndex = 15;
+            this.hpLabel.Text = "0";
+            // 
+            // nameText
+            // 
+            this.nameText.AutoSize = true;
+            this.nameText.Location = new System.Drawing.Point(13, 30);
+            this.nameText.Name = "nameText";
+            this.nameText.Size = new System.Drawing.Size(38, 13);
+            this.nameText.TabIndex = 22;
+            this.nameText.Text = "Name:";
+            // 
+            // locationText
+            // 
+            this.locationText.AutoSize = true;
+            this.locationText.Location = new System.Drawing.Point(7, 18);
+            this.locationText.Name = "locationText";
+            this.locationText.Size = new System.Drawing.Size(54, 13);
+            this.locationText.TabIndex = 23;
+            this.locationText.Text = "Location: ";
+            // 
+            // locationLabel
+            // 
+            this.locationLabel.AutoSize = true;
+            this.locationLabel.Location = new System.Drawing.Point(57, 18);
+            this.locationLabel.Name = "locationLabel";
+            this.locationLabel.Size = new System.Drawing.Size(38, 13);
+            this.locationLabel.TabIndex = 24;
+            this.locationLabel.Text = "Space";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
             // gameStateBindingSource
             // 
             this.gameStateBindingSource.DataSource = typeof(ProgressQuest.GameState);
-            // 
-            // questBar
-            // 
-            this.questBar.Location = new System.Drawing.Point(0, 220);
-            this.questBar.Name = "questBar";
-            this.questBar.Size = new System.Drawing.Size(200, 24);
-            this.questBar.Step = 1;
-            this.questBar.TabIndex = 1;
             // 
             // GameUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(926, 877);
+            this.Controls.Add(this.nameText);
             this.Controls.Add(this.enemyHPText);
             this.Controls.Add(this.enemyHPLabel);
             this.Controls.Add(this.enemyHPBar);
@@ -388,6 +432,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.questBox.ResumeLayout(false);
+            this.questBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gameStateBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -408,7 +453,6 @@
         public System.Windows.Forms.ListBox gameLogListBox;
         private System.Windows.Forms.ProgressBar hpBar;
         private System.Windows.Forms.Label playerNameLabel;
-        private System.Windows.Forms.BindingSource gameStateBindingSource;
         private System.Windows.Forms.ListBox inventoryListBox;
         private System.Windows.Forms.Label cashLabel;
         private System.Windows.Forms.Label cashText;
@@ -417,7 +461,6 @@
         private System.Windows.Forms.ListBox equipmentListBox;
         private System.Windows.Forms.Label dmgMinLabel;
         private System.Windows.Forms.Label damageText;
-        private System.Windows.Forms.Label hpLabel;
         private System.Windows.Forms.Label hpText;
         private System.Windows.Forms.Label dashText;
         private System.Windows.Forms.Label dmgMaxLabel;
@@ -428,6 +471,12 @@
         private System.Windows.Forms.Label enemyHPText;
         private System.Windows.Forms.Label enemyHPLabel;
         private System.Windows.Forms.ProgressBar questBar;
+        private System.Windows.Forms.Label hpLabel;
+        private System.Windows.Forms.Label locationLabel;
+        private System.Windows.Forms.Label locationText;
+        private System.Windows.Forms.Label nameText;
+        public System.Windows.Forms.BindingSource gameStateBindingSource;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }
 

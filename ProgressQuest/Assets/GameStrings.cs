@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProgressQuest.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,12 +10,7 @@ namespace ProgressQuest
 {
     public static class GameStrings
     {
-        public static String[] INTRO_STEPS =
-        {
-            "You awaken with no memory.",
-            "You search your surroundings. You are in a dark room.",
-            "You are likely to be eaten by a grue.",
-        };
+        
 
         public enum STARTING_PLAYER_STAT
         {
