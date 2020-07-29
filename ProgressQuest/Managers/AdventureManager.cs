@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProgressQuest.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,8 +17,20 @@ namespace ProgressQuest.Managers
 
         public static void DoBattle()
         {
-            // if monster is dead, loot it and find a new monster
-
+            if (State.Enemy == null)
+            {
+                Log.Add($"Patrolling for baddies...", () => { MonsterManager.GetEnemy(); });
+            }
+            else if (State.Enemy.CurrentHP <= 0)
+            {
+                Log.Add("Looting...", () => { LootManager.GenerateLoot(); State.QuestLog.KilledAMonster(); });
+            }
+            else
+            {
+                var mySwing = rng.Next((int)State.Player.DmgMin, (int)State.Player.DmgMax);
+                var enemySwing = rng.Next((int)State.Enemy.DmgMin, (int)State.Enemy.DmgMax);
+                Log.Add($"Hit for {mySwing}.  Took {enemySwing} damage.", () => { State.Player.HP -= enemySwing; State.Enemy.CurrentHP -= mySwing; });
+            }
         }
 
         public static void SellLoot()

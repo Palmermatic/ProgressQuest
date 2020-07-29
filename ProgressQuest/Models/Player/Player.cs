@@ -22,7 +22,7 @@ namespace ProgressQuest.Models
         public BigInteger HP
         {
             get { return hp; }
-            set { if (value != hp) { hp = value; NotifyPropertyChanged("HPLabel"); NotifyPropertyChanged("HPPercent"); } }
+            set { if (value != hp) { hp = Math.Max(0, (int)value); NotifyPropertyChanged("HPLabel"); NotifyPropertyChanged("HPPercent"); } }
         }
         private BigInteger maxHP { get; set; }
         public BigInteger MaxHP
@@ -41,15 +41,22 @@ namespace ProgressQuest.Models
         public BigInteger DmgMax { get { return dmgMax; } set { if (dmgMax != value) { dmgMax = value; NotifyPropertyChanged(); } } }
 
         public BindingList<LootItem> Inventory { get; set; }
-        public EquipmentManager Equipment { get; set; }
+        public BindingList<ArmorItem> Equipment { get; set; }
+        private int lastEquipped;
+        public int LastEquipped { get { return lastEquipped; } set { if (lastEquipped != value) { lastEquipped = value; NotifyPropertyChanged(); } } }
 
         public Player()
         {
             var input = Interaction.InputBox("Enter your name", "New game");
             Name = string.IsNullOrWhiteSpace(input) ? "a noob" : input;
-            Equipment = new EquipmentManager();
-            Equipment.Equip(new ArmorItem { Name = "a stupid hat", Value = 10 });
             Inventory = new BindingList<LootItem>();
+            Equipment = new BindingList<ArmorItem>();
+            DmgMin = 1;
+            DmgMax = 1;
+            foreach (PLAYER_ARMOR_SLOT slot in Enum.GetValues(typeof(PLAYER_ARMOR_SLOT)))
+            {
+                Equipment.Add(new ArmorItem { Name = "empty", Value = 0, Slot = slot });
+            }
             Stats = new Dictionary<string, PlayerStat>();
         }
 

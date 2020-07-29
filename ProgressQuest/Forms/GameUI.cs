@@ -29,31 +29,27 @@ namespace ProgressQuest
             }
 
             // bind all the UI controls
+            actionBar.DataBindings.Add("Maximum", GameManager.Log, "TicksRequired");
             adventureCheckbox.DataBindings.Add(new Binding("Checked", State.IsRunning, ""));
             gameLogListBox.DataSource = GameManager.Log.Log;
             gameLogListBox.SelectedIndexChanged += new EventHandler(SelectLastLog);
-            hpBar.DataBindings.Add("Value", State.Player.HPPercent, "");
-            hpLabel.DataBindings.Add("Text", State.Player.HPLabel, "");
-            playerNameLabel.DataBindings.Add("Text", State.Player.Name, "");
-            cashLabel.DataBindings.Add("Text", State.Player.Cash, "");
+            hpBar.DataBindings.Add("Value", State.Player, "HPPercent");
+            hpLabel.DataBindings.Add("Text", State.Player, "HPLabel");
+            playerNameLabel.DataBindings.Add("Text", State.Player, "Name");
+            cashLabel.DataBindings.Add("Text", State.Player, "Cash");
             inventoryListBox.DataSource = State.Player.Inventory;
-            equipmentListBox.DataSource = State.Player.Equipment.Items;
-            locationLabel.DataBindings.Add("Text", State.QuestLog.Location, "", false, DataSourceUpdateMode.OnPropertyChanged);
-            questBar.DataBindings.Add("Value", State.QuestLog.CurrentQuestPercent, "");
+            equipmentListBox.DataSource = State.Player.Equipment;
+            locationLabel.DataBindings.Add("Text", State.QuestLog, "Location");
+            questBar.DataBindings.Add("Value", State.QuestLog, "CurrentQuestPercent");
             questLogListBox.DataSource = State.QuestLog.Quests;
             questLogListBox.DisplayMember = "Text";
-            questLogListBox.ClearSelected();
-        }
-
-        public void SetActionTicksRequired(int ticks = 3)
-        {
-            actionBar.Maximum = ticks;
         }
 
         private void SelectLastLog(object sender, EventArgs e)
         {
+            //TODO this doesn't fire until the quest log is clicked. need it to fire on form load
+            equipmentListBox.SelectedIndex = State.Player.LastEquipped;
             gameLogListBox.SelectedIndex = 0;
-            //TODO why doesn't this fire until the box is clicked?
 
             for (int i = 0; i < questLogListBox.Items.Count; ++i)
             {

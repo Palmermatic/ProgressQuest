@@ -82,6 +82,7 @@
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
     <Compile Include="Managers\AdventureManager.cs" />
+    <Compile Include="Managers\LootManager.cs" />
     <Compile Include="Managers\MonsterManager.cs" />
     <Compile Include="Models\UI\DisplayedItem.cs" />
     <Compile Include="Managers\EquipmentManager.cs" />

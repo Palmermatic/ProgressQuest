@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProgressQuest.Models;
+using System;
 using System.ComponentModel;
 using System.Numerics;
 using System.Runtime.CompilerServices;
@@ -6,10 +7,8 @@ using static ProgressQuest.GameManager;
 
 namespace ProgressQuest
 {
-    public class PlayerStat : INotifyPropertyChanged
+    public class PlayerStat : DisplayedItem
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public string Name { get; set; }
 
         private BigInteger value { get; set; }
@@ -62,14 +61,6 @@ namespace ProgressQuest
             {
                 CurrentXP += gain;
             }
-        }
-
-        // This method is called by the Set accessor of each property.
-        // The CallerMemberName attribute that is applied to the optional propertyName
-        // parameter causes the property name of the caller to be substituted as an argument.
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

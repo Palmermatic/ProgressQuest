@@ -9,27 +9,16 @@ using static ProgressQuest.GameManager;
 
 namespace ProgressQuest.Models
 {
-    public class EquipmentManager
+    public static class EquipmentManager
     {
-        public BindingList<ArmorItem> Items { get; set; }
-
-        public EquipmentManager()
+        public static void Equip(ArmorItem item)
         {
-            Items = new BindingList<ArmorItem>();
-            foreach (PLAYER_ARMOR_SLOT slot in Enum.GetValues(typeof(PLAYER_ARMOR_SLOT)))
-            {
-                Items.Add(new ArmorItem { Name = "empty", Value = 0, Slot = slot });
-            }
-        }
-
-        public LootItem Equip(ArmorItem item)
-        {
-            var oldItem = Items.First(i => i.Slot == item.Slot);
-            var index = Items.IndexOf(oldItem);
+            var oldItem = State.Player.Equipment.First(i => i.Slot == item.Slot);
+            var index = State.Player.Equipment.IndexOf(oldItem);
             var oldLoot = new LootItem { Name = oldItem.Name, Value = oldItem.Value };
-            Items.Remove(oldItem);
-            Items.Insert(index, item);
-            return oldLoot;
+            State.Player.Equipment.Remove(oldItem);
+            State.Player.Equipment.Insert(index, item);
+            State.Player.LastEquipped = index;
         }
     }
 }

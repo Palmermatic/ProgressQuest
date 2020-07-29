@@ -70,8 +70,19 @@ namespace ProgressQuest.Models.UI
             }
             else
             {
-                GameManager.Log.Add(INTRO_STEPS[MonstersKilled], INTRO_ACTIONS[MonstersKilled]);
+                GameManager.Log.Add(INTRO_STEPS[MonstersKilled], INTRO_ACTIONS[MonstersKilled], MonstersKilled);
                 State.QuestLog.MonstersKilled++;
+            }
+        }
+
+        public void KilledAMonster()
+        {
+            State.Enemy = null;
+            State.Player.Stats["Experience"].AddXP(10);
+            MonstersKilled++;
+            if (MonstersKilled >= MaxMonstersKilled)
+            {
+                GetNextQuest();
             }
         }
 
@@ -82,16 +93,20 @@ namespace ProgressQuest.Models.UI
             if (CurrentActNumber == 0 || CurrentChapterNumber >= 3) // act complete
             {
                 CurrentActNumber++; CurrentChapterNumber = 1; CurrentQuestNumber = 0;
+                DeleteQuests();
+                Quests.Add(new Quest { Text = $"Act {CurrentActNumber}, Chapter {CurrentChapterNumber}" });
+
             }
             if (CurrentQuestNumber >= 3) // chapter complete
             {
                 CurrentChapterNumber++; CurrentQuestNumber = 0;
+                DeleteQuests();
+                Quests.Add(new Quest { Text = $"Act {CurrentActNumber}, Chapter {CurrentChapterNumber}" });
+
             }
             CurrentQuestNumber++;
-            DeleteQuests();
-            Quests.Add(new Quest { Text = $"Act {CurrentActNumber}, Chapter {CurrentChapterNumber}" });
-
-
+            MonstersKilled = 0;
+            MaxMonstersKilled = CurrentActNumber * CurrentChapterNumber * CurrentQuestNumber;
             quest.Text = $"Quest {CurrentQuestNumber}: Slay {MaxMonstersKilled} baddies";
 
             Quests.Add(quest);
@@ -105,7 +120,7 @@ namespace ProgressQuest.Models.UI
                 Quests.Remove(quest);
                 quest = Quests.Last();
             }
-            Quests.Last().IsChecked = false;
+            quest.IsChecked = true;
         }
     }
 }
