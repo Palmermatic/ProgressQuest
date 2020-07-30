@@ -7,7 +7,7 @@ using static ProgressQuest.GameManager;
 
 namespace ProgressQuest
 {
-    public class PlayerStat : DisplayedItem
+    public class PlayerStat : INotifyPropertyChanged
     {
         public string Name { get; set; }
 
@@ -45,22 +45,16 @@ namespace ProgressQuest
         {
             Name = name;
             Value = rng.Next(2, 10);
-            CurrentXP = 10;
+            if (name == "Level") Value = 1;
+            CurrentXP = 0;
             NextLevel = Value * 10;
         }
 
-        public void AddXP(int gain)
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
-            if (CurrentXP + gain > nextLevel)
-            {
-                Value += 1;
-                CurrentXP -= (NextLevel - gain);
-                NextLevel += 10;
-            }
-            else
-            {
-                CurrentXP += gain;
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

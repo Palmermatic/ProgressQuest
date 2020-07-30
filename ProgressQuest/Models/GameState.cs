@@ -29,6 +29,7 @@ namespace ProgressQuest
         {
             Player = new Player();
             QuestLog = new QuestLog();
+            Enemy = new Monster();
             IsRunning = true;
         }
 

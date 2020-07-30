@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace ProgressQuest
 {
-    public class GameLog : DisplayedItem
+    public class GameLog : INotifyPropertyChanged
     {
         public BindingList<string> Log { get; set; }
         public string NextLog { get; set; }
@@ -25,10 +25,21 @@ namespace ProgressQuest
 
         public void Add(string text, Action reward = null, int ticksRequired = 3)
         {
-            NextReward?.Invoke();
             Log.Insert(0, text);
             NextReward = reward;
             TicksRequired = ticksRequired;
+        }
+
+        public void Do()
+        {
+            NextReward?.Invoke();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

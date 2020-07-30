@@ -33,12 +33,25 @@ namespace ProgressQuest
             adventureCheckbox.DataBindings.Add(new Binding("Checked", State.IsRunning, ""));
             gameLogListBox.DataSource = GameManager.Log.Log;
             gameLogListBox.SelectedIndexChanged += new EventHandler(SelectLastLog);
+
+            // player
+            dmgMinLabel.DataBindings.Add("Text", State.Player, "DmgMin");
+            dmgMaxLabel.DataBindings.Add("Text", State.Player, "DmgMax");
             hpBar.DataBindings.Add("Value", State.Player, "HPPercent");
             hpLabel.DataBindings.Add("Text", State.Player, "HPLabel");
             playerNameLabel.DataBindings.Add("Text", State.Player, "Name");
             cashLabel.DataBindings.Add("Text", State.Player, "Cash");
             inventoryListBox.DataSource = State.Player.Inventory;
             equipmentListBox.DataSource = State.Player.Equipment;
+
+            // enemy
+            enemyHPBar.DataBindings.Add("Value", State.Enemy, "HPPercent");
+            enemyHPLabel.DataBindings.Add("Text", State.Enemy, "HPLabel");
+            enemyNameLabel.DataBindings.Add("Text", State.Enemy, "Name");
+            enemyLevelLabel.DataBindings.Add("Text", State.Enemy, "Level");
+            enemyMinDmgLabel.DataBindings.Add("Text", State.Enemy, "DmgMin");
+            enemyMaxDmgLabel.DataBindings.Add("Text", State.Enemy, "DmgMax");
+
             locationLabel.DataBindings.Add("Text", State.QuestLog, "Location");
             questBar.DataBindings.Add("Value", State.QuestLog, "CurrentQuestPercent");
             questLogListBox.DataSource = State.QuestLog.Quests;
@@ -97,7 +110,7 @@ namespace ProgressQuest
                 Location = new Point(80, yCoord),
                 AutoSize = true
             };
-            value.DataBindings.Add("Text", stat, "Value", false, DataSourceUpdateMode.OnPropertyChanged);
+            value.DataBindings.Add("Text", stat, "Value");
             statsBox.Controls.Add(value);
 
             var xpBar = new ProgressBar
@@ -111,7 +124,7 @@ namespace ProgressQuest
                 Style = ProgressBarStyle.Continuous,
                 MarqueeAnimationSpeed = 0
             };
-            xpBar.DataBindings.Add("Value", stat, "XPPercent", false, DataSourceUpdateMode.OnPropertyChanged);
+            xpBar.DataBindings.Add("Value", stat, "XPPercent");
             statsBox.Controls.Add(xpBar);
 
             var xpTip = new ToolTip();

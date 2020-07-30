@@ -1,4 +1,5 @@
 ﻿using ProgressQuest.Models;
+using ProgressQuest.Models.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,20 +11,15 @@ namespace ProgressQuest.Managers
 {
     public static class AdventureManager
     {
-        public static void SetNextLocation()
-        {
-            State.QuestLog.Location = GameStrings.ADVENTURE_LOCATIONS[0];
-        }
-
         public static void DoBattle()
         {
-            if (State.Enemy == null)
+            if (State.Enemy.MaximumHP == 0)
             {
                 Log.Add($"Patrolling for baddies...", () => { MonsterManager.GetEnemy(); });
             }
             else if (State.Enemy.CurrentHP <= 0)
             {
-                Log.Add("Looting...", () => { LootManager.GenerateLoot(); State.QuestLog.KilledAMonster(); });
+                Log.Add(State.Enemy.Name + " slain!  Looting...", () => { LootManager.GenerateLoot(); QuestManager.KilledAMonster(); });
             }
             else
             {
@@ -41,6 +37,21 @@ namespace ProgressQuest.Managers
                 State.Player.Cash += item.Value;
                 State.Player.Inventory.Remove(item);
             });
+        }
+
+        internal static void WalkToBattle()
+        {
+            Log.Add("Walking to " + GameStrings.ADVENTURE_LOCATIONS[0], () => { State.QuestLog.Location = GameStrings.ADVENTURE_LOCATIONS[0]; });
+        }
+
+        internal static void Rest()
+        {
+            Log.Add("Resting up...", () => { State.Player.HP = State.Player.MaxHP; }, 10);
+        }
+
+        internal static void WalkToTown()
+        {
+            Log.Add("Limping back to town...", () => { State.QuestLog.Location = "Town"; }, 5);
         }
     }
 }

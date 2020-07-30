@@ -10,11 +10,11 @@ namespace ProgressQuest
 {
     public static class GameStrings
     {
-        
+
 
         public enum STARTING_PLAYER_STAT
         {
-            Experience,
+            Level,
             Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma
         };
 

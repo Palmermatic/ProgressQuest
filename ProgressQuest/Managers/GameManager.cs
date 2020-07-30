@@ -29,6 +29,7 @@ namespace ProgressQuest
 
         public static void Tick()
         {
+            Log.Do();
             SetNextAction();
         }
 
@@ -36,7 +37,7 @@ namespace ProgressQuest
         {
             if (State.QuestLog.CurrentActNumber == 0)
             {
-                State.QuestLog.DoIntro();
+                QuestManager.DoIntro();
             }
             else
             {
@@ -50,7 +51,7 @@ namespace ProgressQuest
                         }
                         else
                         {
-                            Log.Add("Walking to the killing fields...", () => { AdventureManager.SetNextLocation(); });
+                            AdventureManager.WalkToBattle();
                         }
                     }
                     else
@@ -62,20 +63,14 @@ namespace ProgressQuest
                 {
                     if (State.QuestLog.Location == "Town")
                     {
-                        Log.Add("Resting up...", () => { State.Player.HP = State.Player.MaxHP; });
+                        AdventureManager.Rest();
                     }
                     else
                     {
-                        Log.Add("Limping back to town...", () => { State.QuestLog.Location = "Town"; });
+                        AdventureManager.WalkToTown();
                     }
                 }
             }
-        }
-
-        public static void TrainRandomStat()
-        {
-            var randomStat = State.Player.Stats.Skip(rng.Next(1, State.Player.Stats.Count)).First();
-            GameManager.Log.Add("Training " + randomStat.Key + "...", () => { randomStat.Value.AddXP(10); });
         }
     }
 }

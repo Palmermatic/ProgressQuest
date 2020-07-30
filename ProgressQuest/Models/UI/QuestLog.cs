@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic.Logging;
+using ProgressQuest.Managers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,7 +13,7 @@ using static ProgressQuest.GameManager;
 
 namespace ProgressQuest.Models.UI
 {
-    public class QuestLog : DisplayedItem
+    public class QuestLog : INotifyPropertyChanged
     {
         public BindingList<Quest> Quests { get; set; }
         private string location;
@@ -41,86 +42,14 @@ namespace ProgressQuest.Models.UI
             CurrentChapterNumber = 0;
             CurrentQuestNumber = 0;
             MonstersKilled = 0;
-            MaxMonstersKilled = INTRO_STEPS.Length;
+            MaxMonstersKilled = QuestManager.INTRO_STEPS.Length;
         }
 
-        public static string[] INTRO_STEPS =
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
-            "Beginning opening exposition...",
-            "Terrible visions fill your head.",
-            "You awaken with a fierce resolve.",
-            "You gather your finest possessions.",
-            "You bravely venture outside."
-        };
-
-        public static Action[] INTRO_ACTIONS =
-        {
-            () => { State.Player.MaxHP = 10; },
-            () => { State.Player.HP = 10; },
-            () => { State.QuestLog.Location = "Town"; },
-            () => { State.Player.Inventory.Add(new LootItem("a small pile of shit", 1)); State.Player.Cash = 3; },
-            () => { State.QuestLog.Quests.First().IsChecked = true; }
-        };
-
-        public void DoIntro()
-        {
-            if (State.QuestLog.MonstersKilled == MaxMonstersKilled)
-            {
-                GetNextQuest();
-            }
-            else
-            {
-                GameManager.Log.Add(INTRO_STEPS[MonstersKilled], INTRO_ACTIONS[MonstersKilled], MonstersKilled);
-                State.QuestLog.MonstersKilled++;
-            }
-        }
-
-        public void KilledAMonster()
-        {
-            State.Enemy = null;
-            State.Player.Stats["Experience"].AddXP(10);
-            MonstersKilled++;
-            if (MonstersKilled >= MaxMonstersKilled)
-            {
-                GetNextQuest();
-            }
-        }
-
-        public void GetNextQuest()
-        {
-            var quest = new Quest();
-
-            if (CurrentActNumber == 0 || CurrentChapterNumber >= 3) // act complete
-            {
-                CurrentActNumber++; CurrentChapterNumber = 1; CurrentQuestNumber = 0;
-                DeleteQuests();
-                Quests.Add(new Quest { Text = $"Act {CurrentActNumber}, Chapter {CurrentChapterNumber}" });
-
-            }
-            if (CurrentQuestNumber >= 3) // chapter complete
-            {
-                CurrentChapterNumber++; CurrentQuestNumber = 0;
-                DeleteQuests();
-                Quests.Add(new Quest { Text = $"Act {CurrentActNumber}, Chapter {CurrentChapterNumber}" });
-
-            }
-            CurrentQuestNumber++;
-            MonstersKilled = 0;
-            MaxMonstersKilled = CurrentActNumber * CurrentChapterNumber * CurrentQuestNumber;
-            quest.Text = $"Quest {CurrentQuestNumber}: Slay {MaxMonstersKilled} baddies";
-
-            Quests.Add(quest);
-        }
-
-        private void DeleteQuests()
-        {
-            var quest = Quests.Last();
-            while (quest.Text.StartsWith("Q"))
-            {
-                Quests.Remove(quest);
-                quest = Quests.Last();
-            }
-            quest.IsChecked = true;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

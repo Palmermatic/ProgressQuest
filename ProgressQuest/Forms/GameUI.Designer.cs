@@ -37,6 +37,7 @@
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.actionTimer = new System.Windows.Forms.Timer(this.components);
             this.gameLogListBox = new System.Windows.Forms.ListBox();
             this.hpBar = new System.Windows.Forms.ProgressBar();
@@ -53,6 +54,8 @@
             this.equipmentListBox = new System.Windows.Forms.ListBox();
             this.hpText = new System.Windows.Forms.Label();
             this.questBox = new System.Windows.Forms.GroupBox();
+            this.locationLabel = new System.Windows.Forms.Label();
+            this.locationText = new System.Windows.Forms.Label();
             this.questBar = new System.Windows.Forms.ProgressBar();
             this.questLogListBox = new System.Windows.Forms.CheckedListBox();
             this.enemyBox = new System.Windows.Forms.GroupBox();
@@ -61,14 +64,20 @@
             this.enemyHPLabel = new System.Windows.Forms.Label();
             this.hpLabel = new System.Windows.Forms.Label();
             this.nameText = new System.Windows.Forms.Label();
-            this.locationText = new System.Windows.Forms.Label();
-            this.locationLabel = new System.Windows.Forms.Label();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.enemyNameText = new System.Windows.Forms.Label();
+            this.enemyNameLabel = new System.Windows.Forms.Label();
+            this.enemyLevelText = new System.Windows.Forms.Label();
+            this.enemyLevelLabel = new System.Windows.Forms.Label();
             this.gameStateBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.enemyDashText = new System.Windows.Forms.Label();
+            this.enemyMaxDmgLabel = new System.Windows.Forms.Label();
+            this.enemyMinDmgLabel = new System.Windows.Forms.Label();
+            this.enemyDamageText = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.questBox.SuspendLayout();
+            this.enemyBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gameStateBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -145,6 +154,14 @@
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // actionTimer
             // 
@@ -300,6 +317,24 @@
             this.questBox.TabStop = false;
             this.questBox.Text = "Quest";
             // 
+            // locationLabel
+            // 
+            this.locationLabel.AutoSize = true;
+            this.locationLabel.Location = new System.Drawing.Point(57, 18);
+            this.locationLabel.Name = "locationLabel";
+            this.locationLabel.Size = new System.Drawing.Size(38, 13);
+            this.locationLabel.TabIndex = 24;
+            this.locationLabel.Text = "Space";
+            // 
+            // locationText
+            // 
+            this.locationText.AutoSize = true;
+            this.locationText.Location = new System.Drawing.Point(7, 18);
+            this.locationText.Name = "locationText";
+            this.locationText.Size = new System.Drawing.Size(54, 13);
+            this.locationText.TabIndex = 23;
+            this.locationText.Text = "Location: ";
+            // 
             // questBar
             // 
             this.questBar.Location = new System.Drawing.Point(0, 220);
@@ -319,6 +354,14 @@
             // 
             // enemyBox
             // 
+            this.enemyBox.Controls.Add(this.enemyDashText);
+            this.enemyBox.Controls.Add(this.enemyMaxDmgLabel);
+            this.enemyBox.Controls.Add(this.enemyMinDmgLabel);
+            this.enemyBox.Controls.Add(this.enemyDamageText);
+            this.enemyBox.Controls.Add(this.enemyLevelLabel);
+            this.enemyBox.Controls.Add(this.enemyLevelText);
+            this.enemyBox.Controls.Add(this.enemyNameText);
+            this.enemyBox.Controls.Add(this.enemyNameLabel);
             this.enemyBox.Location = new System.Drawing.Point(604, 284);
             this.enemyBox.Name = "enemyBox";
             this.enemyBox.Size = new System.Drawing.Size(288, 194);
@@ -370,35 +413,84 @@
             this.nameText.TabIndex = 22;
             this.nameText.Text = "Name:";
             // 
-            // locationText
+            // enemyNameText
             // 
-            this.locationText.AutoSize = true;
-            this.locationText.Location = new System.Drawing.Point(7, 18);
-            this.locationText.Name = "locationText";
-            this.locationText.Size = new System.Drawing.Size(54, 13);
-            this.locationText.TabIndex = 23;
-            this.locationText.Text = "Location: ";
+            this.enemyNameText.AutoSize = true;
+            this.enemyNameText.Location = new System.Drawing.Point(23, 25);
+            this.enemyNameText.Name = "enemyNameText";
+            this.enemyNameText.Size = new System.Drawing.Size(38, 13);
+            this.enemyNameText.TabIndex = 24;
+            this.enemyNameText.Text = "Name:";
             // 
-            // locationLabel
+            // enemyNameLabel
             // 
-            this.locationLabel.AutoSize = true;
-            this.locationLabel.Location = new System.Drawing.Point(57, 18);
-            this.locationLabel.Name = "locationLabel";
-            this.locationLabel.Size = new System.Drawing.Size(38, 13);
-            this.locationLabel.TabIndex = 24;
-            this.locationLabel.Text = "Space";
+            this.enemyNameLabel.AutoEllipsis = true;
+            this.enemyNameLabel.AutoSize = true;
+            this.enemyNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.enemyNameLabel.Location = new System.Drawing.Point(67, 20);
+            this.enemyNameLabel.MaximumSize = new System.Drawing.Size(288, 20);
+            this.enemyNameLabel.Name = "enemyNameLabel";
+            this.enemyNameLabel.Size = new System.Drawing.Size(45, 20);
+            this.enemyNameLabel.TabIndex = 23;
+            this.enemyNameLabel.Text = "noob";
             // 
-            // aboutToolStripMenuItem
+            // enemyLevelText
             // 
-            this.aboutToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.enemyLevelText.AutoSize = true;
+            this.enemyLevelText.Location = new System.Drawing.Point(23, 53);
+            this.enemyLevelText.Name = "enemyLevelText";
+            this.enemyLevelText.Size = new System.Drawing.Size(36, 13);
+            this.enemyLevelText.TabIndex = 26;
+            this.enemyLevelText.Text = "Level:";
+            // 
+            // enemyLevelLabel
+            // 
+            this.enemyLevelLabel.AutoSize = true;
+            this.enemyLevelLabel.Location = new System.Drawing.Point(68, 53);
+            this.enemyLevelLabel.Name = "enemyLevelLabel";
+            this.enemyLevelLabel.Size = new System.Drawing.Size(13, 13);
+            this.enemyLevelLabel.TabIndex = 27;
+            this.enemyLevelLabel.Text = "0";
             // 
             // gameStateBindingSource
             // 
             this.gameStateBindingSource.DataSource = typeof(ProgressQuest.GameState);
+            // 
+            // enemyDashText
+            // 
+            this.enemyDashText.AutoSize = true;
+            this.enemyDashText.Location = new System.Drawing.Point(135, 78);
+            this.enemyDashText.Name = "enemyDashText";
+            this.enemyDashText.Size = new System.Drawing.Size(10, 13);
+            this.enemyDashText.TabIndex = 31;
+            this.enemyDashText.Text = "-";
+            // 
+            // enemyMaxDmgLabel
+            // 
+            this.enemyMaxDmgLabel.AutoSize = true;
+            this.enemyMaxDmgLabel.Location = new System.Drawing.Point(160, 79);
+            this.enemyMaxDmgLabel.Name = "enemyMaxDmgLabel";
+            this.enemyMaxDmgLabel.Size = new System.Drawing.Size(48, 13);
+            this.enemyMaxDmgLabel.TabIndex = 30;
+            this.enemyMaxDmgLabel.Text = "maxDmg";
+            // 
+            // enemyMinDmgLabel
+            // 
+            this.enemyMinDmgLabel.AutoSize = true;
+            this.enemyMinDmgLabel.Location = new System.Drawing.Point(84, 79);
+            this.enemyMinDmgLabel.Name = "enemyMinDmgLabel";
+            this.enemyMinDmgLabel.Size = new System.Drawing.Size(45, 13);
+            this.enemyMinDmgLabel.TabIndex = 29;
+            this.enemyMinDmgLabel.Text = "minDmg";
+            // 
+            // enemyDamageText
+            // 
+            this.enemyDamageText.AutoSize = true;
+            this.enemyDamageText.Location = new System.Drawing.Point(23, 78);
+            this.enemyDamageText.Name = "enemyDamageText";
+            this.enemyDamageText.Size = new System.Drawing.Size(50, 13);
+            this.enemyDamageText.TabIndex = 28;
+            this.enemyDamageText.Text = "Damage:";
             // 
             // GameUI
             // 
@@ -433,6 +525,8 @@
             this.groupBox2.PerformLayout();
             this.questBox.ResumeLayout(false);
             this.questBox.PerformLayout();
+            this.enemyBox.ResumeLayout(false);
+            this.enemyBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gameStateBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -477,6 +571,14 @@
         private System.Windows.Forms.Label nameText;
         public System.Windows.Forms.BindingSource gameStateBindingSource;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.Label enemyLevelLabel;
+        private System.Windows.Forms.Label enemyLevelText;
+        private System.Windows.Forms.Label enemyNameText;
+        private System.Windows.Forms.Label enemyNameLabel;
+        private System.Windows.Forms.Label enemyDashText;
+        private System.Windows.Forms.Label enemyMaxDmgLabel;
+        private System.Windows.Forms.Label enemyMinDmgLabel;
+        private System.Windows.Forms.Label enemyDamageText;
     }
 }
 

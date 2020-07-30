@@ -75,16 +75,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutBox1.cs">
+    <Compile Include="Forms\About.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutBox1.Designer.cs">
-      <DependentUpon>AboutBox1.cs</DependentUpon>
+    <Compile Include="Forms\About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
     </Compile>
     <Compile Include="Managers\AdventureManager.cs" />
     <Compile Include="Managers\LootManager.cs" />
     <Compile Include="Managers\MonsterManager.cs" />
-    <Compile Include="Models\UI\DisplayedItem.cs" />
+    <Compile Include="Managers\PlayerManager.cs" />
+    <Compile Include="Managers\QuestManager.cs" />
     <Compile Include="Managers\EquipmentManager.cs" />
     <Compile Include="Models\Items\ArmorItem.cs" />
     <Compile Include="Models\GameState.cs" />
@@ -104,8 +105,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\UI\GameLog.cs" />
-    <EmbeddedResource Include="AboutBox1.resx">
-      <DependentUpon>AboutBox1.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\About.resx">
+      <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\GameUI.resx">
       <DependentUpon>GameUI.cs</DependentUpon>
